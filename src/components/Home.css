@@ -7,6 +7,11 @@ body {
 .image {
     height: 100%;
 }
+.ui.cards > .card {
+    display: flex;
+    margin: 3em .5em;
+    float: none;
+}
 .ui.card>.image>img,
 .ui.cards>.card>.image>img {
  display:block;

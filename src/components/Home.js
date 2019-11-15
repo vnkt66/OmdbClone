@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import { Container, Header, Icon, Search, Grid, Select, Button, Card, Image } from 'semantic-ui-react';
+import { Container, Header, Icon, Search, Grid, Select, Button, Card } from 'semantic-ui-react';
 import axios from 'axios';
+import Movie from './Movie';
 import './Home.css';
 
 var source = ({})
@@ -62,18 +63,6 @@ export default class Home extends Component {
          })
      }
      else if(response.data.Search!==undefined) {
-        // const movies = response.data.Search.map((movie) => {
-        //    return ({
-        //        "key": movie.imdbID,
-        //        "title": movie.Title,
-        //        "rating": movie.imdbRating,
-        //        "genre": movie.Genre,
-        //        "image": movie.Poster,
-        //        "released": movie.Released,
-        //        "author": movie.Writer,
-        //        "actors": movie.Actors
-        //    })
-        // })
         this.setState({
           moviesfetched: response.data.Search
         }, () => {
@@ -99,6 +88,12 @@ export default class Home extends Component {
       }, 300)
   }
 
+  onMovieClickHandler = (imdbID) => {
+     axios.get('http://www.omdbapi.com/?type='+this.state.optionvalue+'&i='+imdbID+'&apikey=5aebc1cf').then((res) => {
+       console.log(res);
+     })
+  }
+
 
     render() {
         const { isLoading, value, optionvalue, results, error, moviesfetched } = this.state;
@@ -106,12 +101,15 @@ export default class Home extends Component {
         var moviesdata = error !== '' ? <h3>Movies Not Found!!!</h3> : <h1>Start Searching!!!</h1>
 
         if (moviesfetched.length > 0) {
-         console.log('GReater')
          const mvs = moviesfetched.map((movie) => {
              return (
-               <Card key={movie.imdbID}>
-                 {movie.Poster === 'N/A' ? <Image src='https://react.semantic-ui.com/images/wireframe/white-image.png'></Image> : <Image src={movie.Poster} wrapped ui={false}/>}
-               </Card>
+               <Movie 
+                key={movie.imdbID}
+                Poster={movie.Poster} 
+                imdbID={movie.imdbID} 
+                Year={movie.Year}
+                MovieClick={this.onMovieClickHandler}
+                Title={movie.Title}/>
              )
           })
           moviesdata = '';

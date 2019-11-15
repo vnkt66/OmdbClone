@@ -21,8 +21,13 @@ export default class Home extends Component {
       value: '',
       optionvalue: 'movie',
       moviesfetched: [],
-      error: ''
+      error: '',
+      open: true,
+      modaldata: []
   };
+
+  show = (dimmer) => () => this.setState({ dimmer, open: true })
+  close = () => this.setState({ open: false })
 
   componentDidMount() {
     axios.get('http://www.omdbapi.com/?type=movie&s=dragon&apikey=5aebc1cf').then((response) => {
@@ -91,12 +96,16 @@ export default class Home extends Component {
   onMovieClickHandler = (imdbID) => {
      axios.get('http://www.omdbapi.com/?type='+this.state.optionvalue+'&i='+imdbID+'&apikey=5aebc1cf').then((res) => {
        console.log(res);
+        this.setState({
+          modaldata: [res.data]
+        })
+        this.show('blurring');
      })
   }
 
 
     render() {
-        const { isLoading, value, optionvalue, results, error, moviesfetched } = this.state;
+        const { isLoading, value, optionvalue, results, error, moviesfetched, open, dimmer } = this.state;
 
         var moviesdata = error !== '' ? <h3>Movies Not Found!!!</h3> : <h1>Start Searching!!!</h1>
 

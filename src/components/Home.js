@@ -3,6 +3,8 @@ import _ from 'lodash';
 import { Container, Header, Icon, Search, Grid, Select, Button, Card } from 'semantic-ui-react';
 import axios from 'axios';
 import Movie from './Movie';
+import ModalComponent from './Modal';
+
 import './Home.css';
 
 var source = ({})
@@ -22,11 +24,10 @@ export default class Home extends Component {
       optionvalue: 'movie',
       moviesfetched: [],
       error: '',
-      open: true,
+      open: false,
       modaldata: []
   };
 
-  show = (dimmer) => () => this.setState({ dimmer, open: true })
   close = () => this.setState({ open: false })
 
   componentDidMount() {
@@ -97,15 +98,16 @@ export default class Home extends Component {
      axios.get('http://www.omdbapi.com/?type='+this.state.optionvalue+'&i='+imdbID+'&apikey=5aebc1cf').then((res) => {
        console.log(res);
         this.setState({
-          modaldata: [res.data]
+          modaldata: [res.data],
+          open: true,
+          dimmer: 'blurring'
         })
-        this.show('blurring');
      })
   }
 
 
     render() {
-        const { isLoading, value, optionvalue, results, error, moviesfetched, open, dimmer } = this.state;
+        const { isLoading, value, optionvalue, results, error, moviesfetched, open, dimmer, modaldata } = this.state;
 
         var moviesdata = error !== '' ? <h3>Movies Not Found!!!</h3> : <h1>Start Searching!!!</h1>
 
@@ -159,6 +161,14 @@ export default class Home extends Component {
          {moviesdata}
          {values}
         </Grid>
+        {
+         modaldata.length > 0 ? <ModalComponent 
+          dimmer={dimmer} 
+          open={open} 
+          close={this.close}
+          moviedata={modaldata[0]}
+          /> : ''
+        }
        </Container>
         )
     }

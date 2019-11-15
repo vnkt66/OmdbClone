@@ -1,0 +1,4 @@
+i.icon.trash::before {
+    content: "\f1f8";
+    margin: 6px;
+}

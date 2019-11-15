@@ -4,3 +4,13 @@
 body {
     height: 100%;
 }
+.image {
+    height: 100%;
+}
+.ui.card>.image>img,
+.ui.cards>.card>.image>img {
+ display:block;
+ width:100%;
+ height:100%;
+ border-radius:inherit
+}

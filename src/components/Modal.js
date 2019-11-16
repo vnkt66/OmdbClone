@@ -23,13 +23,6 @@ const ModalComponent = (props) => {
         </Modal.Content>
         <Modal.Actions>
         <Button negative onClick={props.close}><Icon name='trash'/></Button>
-        {/* <Button
-         positive
-         icon='checkmark'
-         labelPosition='right'
-         content="Yep, that's me"
-         onClick={props.close}
-         /> */}
          </Modal.Actions>
         </Modal>
   )

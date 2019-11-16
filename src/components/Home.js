@@ -4,6 +4,7 @@ import { Container, Header, Icon, Search, Grid, Select, Button, Card } from 'sem
 import axios from 'axios';
 import Movie from './Movie';
 import ModalComponent from './Modal';
+import Text from './Text';
 
 import './Home.css';
 
@@ -109,7 +110,7 @@ export default class Home extends Component {
     render() {
         const { isLoading, value, optionvalue, results, error, moviesfetched, open, dimmer, modaldata } = this.state;
 
-        var moviesdata = error !== '' ? <h3>Movies Not Found!!!</h3> : <h1>Start Searching!!!</h1>
+        var moviesdata = error !== '' ? <Text>Movies Not Found!!!</Text> : <Text>Start Searching!!!</Text>
 
         if (moviesfetched.length > 0) {
          const mvs = moviesfetched.map((movie) => {
@@ -133,15 +134,15 @@ export default class Home extends Component {
                 <Icon name='tv' circular />
                 <Header.Content>OMDB CLONE</Header.Content>
               </Header>
-              <Grid>
-              <Grid.Column width={6}></Grid.Column>
-        <Grid.Column width={3}>
-          <Search
-            loading={isLoading}
-            onResultSelect={this.handleResultSelect}
-            onSearchChange={_.debounce(this.handleSearchChange, 500, {
-              leading: true,
-            })}
+              <Grid stackable>
+               <Grid.Column width={6} only='large screen'></Grid.Column>
+               <Grid.Column width={3}>
+               <Search
+                loading={isLoading}
+                onResultSelect={this.handleResultSelect}
+                onSearchChange={_.debounce(this.handleSearchChange, 500, {
+                leading: true,
+                })}
             results={results}
             placeholder="Search Movies"
             value={value}
@@ -152,8 +153,8 @@ export default class Home extends Component {
           <Select compact options={options} value={optionvalue} onChange={this.onOptionChange}/>
         </Grid.Column>
         </Grid>
-        <Grid centered columns={10}>
-         <Grid.Column>
+        <Grid centered>
+         <Grid.Column mobile={16} computer={2}>
           <Button basic color='green' onClick={this.onSearchHandler}>Search</Button>
          </Grid.Column>
         </Grid>

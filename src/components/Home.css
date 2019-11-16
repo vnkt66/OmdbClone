@@ -19,3 +19,45 @@ body {
  height:100%;
  border-radius:inherit
 }
+.ui.input {
+    position: relative;
+    font-weight: 400;
+    font-style: normal;
+    display: flex;
+    color: rgba(0,0,0,.87);
+}
+.ui.selection.dropdown {
+    cursor: pointer;
+    word-wrap: break-word;
+    line-height: 1em;
+    white-space: normal;
+    outline: 0;
+    transform: rotateZ(0);
+    min-width: 14em;
+    min-height: 2.71428571em;
+    background: #fff;
+    display: block;
+    padding: .78571429em 2.1em .78571429em 1em;
+    color: rgba(0,0,0,.87);
+    box-shadow: none;
+    border: 1px solid rgba(34,36,38,.15);
+    border-radius: .28571429rem;
+    transition: width .1s ease,-webkit-box-shadow .1s ease;
+    transition: box-shadow .1s ease,width .1s ease;
+    transition: box-shadow .1s ease,width .1s ease,-webkit-box-shadow .1s ease;
+}
+
+.ui.centered.grid > .column:not(.aligned):not(.justified):not(.row), .ui.centered.grid > .row > .column:not(.aligned):not(.justified), .ui.grid .centered.row > .column:not(.aligned):not(.justified) {
+    text-align: center;
+}
+@media only screen and (max-width: 600px) {
+.ui.four.cards > .card {
+    width: calc(50% - 1.5em);
+    margin-left: .75em;
+    margin-right: .75em;
+ }
+ .ui.search .results {
+    max-width: calc(100vw - 2rem);
+    width: 100%;
+}
+}
